@@ -109,6 +109,97 @@ class game:
         self.lockTimer = 100
         self.lockIn = True
         self.extraLife = False
+    
+    # update method
+    def update(self):
+        # pygame.image.unload()
+        print(self.ghostStatus)
+        if self.gameOver:
+            self.gameOverFunction()
+            return
+        if self.paused or not self.started:
+            self.drawTilesAround(20, 11)
+            self.drawTilesAround(20, 12)
+            self.drawTilesAround(20, 13)
+            self.drawTilesAround(20, 14)
+            self.drawTilesAround(20, 15)
+            self.draw()
+            pygame.display.update()
+            return
+
+        self.levelTimer += 1
+        self.ghostsCount += 1
+        self.pacmanCount += 1
+        self.timerChangeCount += 1
+        self.ghostsAttack = False
+
+        if self.score >= 10000 and not self.extraLife:
+            self.lives += 1
+            self.extraLife = True
+    
+    # Draw tiles around ghosts and pacman
+    self.clearBoard()
+    for ghost in self.ghosts:
+        if ghost.attack:
+            self.ghostsAttack = True
+
+    # Check if the ghost should case pacman
+    index = 0
+    for status in self.ghostStatus:
+        status[1] += 1
+        if status[1] >= self.levels[index][status[0]]:
+            status[1] = 0
+            status[0] += 1
+            status[0] %= 2
+        index += 1
+
+    index = 0
+    for ghost in self.ghosts:
+        if not ghost.attack and not ghost.dead and self.ghostStatus[index][0] == 0:
+            ghost.target = [self.pacman.row, self.pacman.col]
+        index += 1
+
+    if self.levelTimer == self.lockTimer:
+        self.lock = False
+
+    self.surroundings
+    if self.ghostCount == self.ghostDelays:
+        for ghost in self.ghosts:
+            ghost.update()
+        self.ghostCount = 0
+
+    if self.timerCount == self.timerDelay:
+        # color change
+        self.flipColor()
+        self.tictakChangeCount = 0
+
+    if self.pacmanCount == self.pacmanDelay:
+        self.pacmanCount = 0
+        self.pacman.update()
+        self.pacman.col %= len(gameBoard[0])
+        if self.pacman.row % 1.0 == 0 and self.pacman.col % 1.0 == 0:
+            if board[int(self.pacman.row)][int(self.pacman.col)] == 2:
+                board[int(self.pacman.row)][int(self.pacman.col)] = 1
+                self.score += 10
+                self.collected += 1
+                # black tile
+                pygame.draw.rect(screen, (0, 0, 0), (self.pacman.col * square, self.pacman.row * square, square, square))
+            elif board[int(self.pacman.row)][int(self.pacman.col)] == 5 or gameBoard[int(self.pacman.row)][int(self.pacman.col)] == 6:
+                board[int(self.pacman.row)][int(self.pacman.col)] = 1
+                self.collected += 1
+                # Fill tile with black
+                pygame.draw.rect(screen, (0, 0, 0), (self.pacman.col * square, self.pacman.row * square, square, square))
+                self.score += 50
+                self.ghostScore = 200
+                for ghost in self.ghosts:
+                    ghost.attackCount = 0
+                    ghost.setAttack(True)
+                    ghost.setTarget()
+                    self.ghostsAttack = True
+    self.surroundings()
+    self.highScore = max(self.score, self.highScore)
+
+            
 
 # pacman
 
