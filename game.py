@@ -53,11 +53,11 @@ board = [
 ]
 
 # display game screen and size of each square
-gameBoard = copy.deepcopy(originalGameBoard)
+board = copy.deepcopy(originalboard)
 spriteRatio = 3/2
 square = 25
 spriteOffset = square * (1 - spriteRatio) * (1/2)
-(width, height) = (len(gameBoard[0]) * square, len(gameBoard) * square)
+(width, height) = (len(board[0]) * square, len(board) * square)
 screen = pygame.display.set_mode((width, height))
 pygame.display.flip()
 
@@ -176,7 +176,7 @@ class game:
     if self.pacmanCount == self.pacmanDelay:
         self.pacmanCount = 0
         self.pacman.update()
-        self.pacman.col %= len(gameBoard[0])
+        self.pacman.col %= len(board[0])
         if self.pacman.row % 1.0 == 0 and self.pacman.col % 1.0 == 0:
             if board[int(self.pacman.row)][int(self.pacman.col)] == 2:
                 board[int(self.pacman.row)][int(self.pacman.col)] = 1
@@ -184,7 +184,7 @@ class game:
                 self.collected += 1
                 # black tile
                 pygame.draw.rect(screen, (0, 0, 0), (self.pacman.col * square, self.pacman.row * square, square, square))
-            elif board[int(self.pacman.row)][int(self.pacman.col)] == 5 or gameBoard[int(self.pacman.row)][int(self.pacman.col)] == 6:
+            elif board[int(self.pacman.row)][int(self.pacman.col)] == 5 or board[int(self.pacman.row)][int(self.pacman.col)] == 6:
                 board[int(self.pacman.row)][int(self.pacman.col)] = 1
                 self.collected += 1
                 # Fill tile with black
@@ -208,7 +208,60 @@ class game:
     if self.level - 1 == 6:
         print("You win", self.level, len(self.levels))
         running = False
-    self.softRender()        
+    self.render()       
+
+    # Render method
+    def render(self):
+        screen.fill((0, 0, 0))
+        currentTile = 0
+        self.displayLives()
+        self.displayScore()
+        for i in range(3, len(board) - 2):
+            for j in range(len(board[0])):
+                if board[i][j] == 3: # wall
+                    image = str(currentTile)
+                    if len(image) == 1:
+                        image = "00" + image
+                    elif len(image) == 2:
+                         image = "0" + image
+                    # get tile image
+                    image = "tile" + image + ".png"
+                    tileImage = pygame.image.load(BoardPath + image)
+                    tileImage = pygame.transform.scale(tileImage, (square, square))
+
+                    # image of tile
+                    screen.blit(tileImage, (j * square, i * square, square, square))
+
+                    # pygame.draw.rect(screen, (0, 0, 255),(j * square, i * square, square, square)) # (x, y, width, height)
+                elif board[i][j] == 2: # draw timer
+                    pygame.draw.circle(screen, pelletColor,(j * square + square//2, i * square + square//2), square//4)
+                elif board[i][j] == 5: # black timer
+                    pygame.draw.circle(screen, (0, 0, 0),(j * square + square//2, i * square + square//2), square//2)
+                elif board[i][j] == 6: # white timer
+                    pygame.draw.circle(screen, pelletColor,(j * square + square//2, i * square + square//2), square//2)
+
+                currentTile += 1
+        
+        # sprites
+        for ghost in self.ghosts:
+            ghost.draw()
+        self.pacman.draw()
+        # screen updates
+        pygame.display.update()
+
+
+    def render(self):
+        pointsToDraw = []
+        for point in self.points:
+            if point[3] < self.pointsTimer:
+                pointsDraw.append([point[2], point[0], point[1]])
+                point[3] += 1
+            else:
+                self.points.remove(point)
+                self.drawTiles(point[0], point[1])
+
+        for point in pointsDraw:
+            self.drawPoints(point[0], point[1], point[2]) 
 
 # pacman
 
