@@ -199,7 +199,16 @@ class game:
     self.surroundings()
     self.highScore = max(self.score, self.highScore)
 
-            
+    global running
+    if self.collect == self.total:
+        print("New Level")
+        self.level += 1
+        self.newLevel()
+
+    if self.level - 1 == 6:
+        print("You win", self.level, len(self.levels))
+        running = False
+    self.softRender()        
 
 # pacman
 
