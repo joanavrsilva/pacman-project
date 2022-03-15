@@ -279,14 +279,47 @@ class game:
                 self.drawTiles(ghost.row, ghost.col)
             self.drawTiles(self.pacman.row, self.pacman.col)
             self.drawTiles(self.berryLocation[0], self.berryLocation[1])
-            # Clears Ready! Label
-            self.drawTiles(20, 10)
-            self.drawTiles(20, 11)
-            self.drawTiles(20, 12)
-            self.drawTiles(20, 13)
-            self.drawTiles(20, 14)
+            self.drawTiles(21, 12)
+            self.drawTiles(21, 12)
+            self.drawTiles(21, 13)
+            self.drawTiles(21, 14)
+            self.drawTiles(21, 15)
 
+    # see pacman status
+    def surroundings(self):
+        for ghost in self.ghosts:
+            if self.touchPacman(ghost.row, ghost.col) and not ghost.attack:
+                if self.lives == 1:
+                    print("Sorry...You lose")
+                    self.gameOver = True
+                    # ghosts remove from the screen
+                    for ghost in self.ghosts:
+                        self.drawTiles(ghost.row, ghost.col)
+                    self.drawTiles(self.pacman.row, self.pacman.col)
+                    self.pacman.draw()
+                    pygame.display.update()
+                    pause(10000000)
+                    return
+                self.started = False
+                reset()
 
+            elif self.touchPacman(ghost.row, ghost.col) and ghost.isAttac() and not ghost.isDead():
+                ghost.setDead(True)
+                ghost.setTarget()
+                ghost.ghostSpeed = 1
+                ghost.row = math.floor(ghost.row)
+                ghost.col = math.floor(ghost.col)
+                self.score += self.ghostScore
+                self.points.append([ghost.row, ghost.col, self.ghostScore, 0])
+                self.ghostScore *= 2
+                pause(10000000)
+
+        if self.touchPacman(self.berryLocation[0], self.berryLocation[1]) and not self.berryStatus[2] and self.levelTimer in range(self.berryStatus[0], self.berryStatus[1]):
+            self.berryStatus[2] = True
+            self.score += self.berryScore
+            self.points.append([self.berryLocation[0], self.berryLocation[1], self.berryScore, 0])
+            self.berriesCollected.append(self.berries[(self.level - 1) % 8])
+            self.forcePlayMusic("eat_fruit.wav")
 # pacman
 
 # ghosts
