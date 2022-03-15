@@ -555,3 +555,43 @@ class Pacman:
             if canMove(self.row, math.floor(self.col - self.pacSpeed)) and self.row % 1.0 == 0:
                 self.col -= self.pacSpeed
 
+    # pacman based on his current state
+    def draw(self):
+        if not game.start:
+            pacman = pygame.image.load(ElementPath + "tile112.png")
+            pacman = pygame.transform.scale(pacman, (int(square * spriteRatio), int(square * spriteRatio)))
+            screen.blit(pacman, (self.col * square + spriteOffset, self.row * square + spriteOffset, square, square))
+            return
+
+        if self.mouthCCount == self.mouthDelay:
+            self.mouthCount = 0
+            self.mouthOpen = not self.mouthOpen
+        self.mouthCount += 1
+        
+        if self.dir == 0:
+            if self.mouthOpen:
+                pacman = pygame.image.load(ElementPath + "tile049.png")
+            else:
+                pacman = pygame.image.load(ElementPath + "tile051.png")
+        
+        elif self.dir == 1:
+            if self.mouthOpen:
+                pacman = pygame.image.load(ElementPath + "tile052.png")
+            else:
+                pacman = pygame.image.load(ElementPath + "tile054.png")
+        
+        elif self.dir == 2:
+            if self.mouthOpen:
+                pacman = pygame.image.load(ElementPath + "tile053.png")
+            else:
+                pacman = pygame.image.load(ElementPath + "tile055.png")
+        
+        elif self.dir == 3:
+            if self.mouthOpen:
+                pacman = pygame.image.load(ElementPath + "tile048.png")
+            else:
+                pacman = pygame.image.load(ElementPath + "tile050.png")
+
+        pacman = pygame.transform.scale(pacman, (int(square * spriteRatio), int(square * spriteRatio)))
+        screen.blit(pacman, (self.col * square + spriteOffset, self.row * square + spriteOffset, square, square))
+
