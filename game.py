@@ -318,8 +318,80 @@ class game:
             self.berryStatus[2] = True
             self.score += self.berryScore
             self.points.append([self.berryLocation[0], self.berryLocation[1], self.berryScore, 0])
-            self.berriesCollected.append(self.berries[(self.level - 1) % 8])
-            self.forcePlayMusic("eat_fruit.wav")
+            self.berriesCollect.append(self.berries[(self.level - 1) % 8])
+    
+    # current score
+    def displayScore(self):
+        textOneUp = ["tile033.png", "tile021.png", "tile016.png"]
+        textHighScore = ["tile007.png", "tile008.png", "tile006.png", "tile007.png", "tile015.png", "tile019.png", "tile002.png", "tile014.png", "tile018.png", "tile004.png"]
+        index = 0
+        scoreStart = 5
+        highScoreStart = 11
+        for i in range(scoreStart, scoreStart+len(textOneUp)):
+            tileImage = pygame.image.load(TextPath + textOneUp[index])
+            tileImage = pygame.transform.scale(tileImage, (square, square))
+            screen.blit(tileImage, (i * square, 4, square, square))
+            index += 1
+        score = str(self.score)
+        if score == "0":
+            score = "00"
+        index = 0
+        for i in range(0, len(score)):
+            digit = int(score[i])
+            tileImage = pygame.image.load(TextPath + "tile0" + str(32 + digit) + ".png")
+            tileImage = pygame.transform.scale(tileImage, (square, square))
+            screen.blit(tileImage, ((scoreStart + 2 + index) * square, square + 4, square, square))
+            index += 1
+
+        index = 0
+        for i in range(highScoreStart, highScoreStart+len(textHighScore)):
+            tileImage = pygame.image.load(TextPath + textHighScore[index])
+            tileImage = pygame.transform.scale(tileImage, (square, square))
+            screen.blit(tileImage, (i * square, 4, square, square))
+            index += 1
+
+        highScore = str(self.highScore)
+        if highScore == "0":
+            highScore = "00"
+        index = 0
+        for i in range(0, len(highScore)):
+            digit = int(highScore[i])
+            tileImage = pygame.image.load(TextPath + "tile0" + str(32 + digit) + ".png")
+            tileImage = pygame.transform.scale(tileImage, (square, square))
+            screen.blit(tileImage, ((highScoreStart + 6 + index) * square, square + 4, square, square))
+            index += 1
+
+    def drawBerry(self):
+        if self.levelTimer in range(self.berryState[0], self.berryState[1]) and not self.berryState[2]:
+            berryImage = pygame.image.load(ElementPath + self.berries[(self.level - 1) % 8])
+            berryImage = pygame.transform.scale(berryImage, (int(square * spriteRatio), int(square * spriteRatio)))
+            screen.blit(berryImage, (self.berryLocation[1] * square, self.berryLocation[0] * square, square, square))
+
+
+    def drawPoints(self, points, row, col):
+        pointStr = str(points)
+        index = 0
+        for i in range(len(pointStr)):
+            digit = int(pointStr[i])
+            tileImage = pygame.image.load(TextPath + "tile" + str(224 + digit) + ".png")
+            tileImage = pygame.transform.scale(tileImage, (square//2, square//2))
+            screen.blit(tileImage, ((col) * square + (square//2 * index), row * square - 20, square//2, square//2))
+            index += 1
+
+    def drawReady(self):
+        ready = ["tile274.png", "tile260.png", "tile256.png", "tile259.png", "tile281.png", "tile283.png"]
+        for i in range(len(ready)):
+            letter = pygame.image.load(TextPath + ready[i])
+            letter = pygame.transform.scale(letter, (int(square), int(square)))
+            screen.blit(letter, ((11 + i) * square, 20 * square, square, square))
+
+    def gameOverFunction(self):
+        global running
+        if self.gameOverCounter == 12:
+            running = False
+            self.recordHighScore()
+            return
+
 # pacman
 
 # ghosts
