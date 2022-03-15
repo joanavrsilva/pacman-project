@@ -118,11 +118,11 @@ class game:
             self.gameOverFunction()
             return
         if self.paused or not self.started:
-            self.drawTilesAround(20, 11)
-            self.drawTilesAround(20, 12)
-            self.drawTilesAround(20, 13)
-            self.drawTilesAround(20, 14)
-            self.drawTilesAround(20, 15)
+            self.drawTiles(20, 11)
+            self.drawTiles(20, 12)
+            self.drawTiles(20, 13)
+            self.drawTiles(20, 14)
+            self.drawTiles(20, 15)
             self.draw()
             pygame.display.update()
             return
@@ -251,7 +251,7 @@ class game:
 
 
     def render(self):
-        pointsToDraw = []
+        pointsDraw = []
         for point in self.points:
             if point[3] < self.pointsTimer:
                 pointsDraw.append([point[2], point[0], point[1]])
@@ -262,6 +262,30 @@ class game:
 
         for point in pointsDraw:
             self.drawPoints(point[0], point[1], point[2]) 
+      
+        for ghost in self.ghosts:
+            ghost.draw()
+        self.pacman.draw()
+        self.displayScore()
+        self.displayBerries()
+        self.displayLives()
+        self.drawBerry()
+        # screen updates
+        pygame.display.update()
+
+    def boardClear(self):
+            # tiles around ghosts and pacman
+            for ghost in self.ghosts:
+                self.drawTiles(ghost.row, ghost.col)
+            self.drawTiles(self.pacman.row, self.pacman.col)
+            self.drawTiles(self.berryLocation[0], self.berryLocation[1])
+            # Clears Ready! Label
+            self.drawTiles(20, 10)
+            self.drawTiles(20, 11)
+            self.drawTiles(20, 12)
+            self.drawTiles(20, 13)
+            self.drawTiles(20, 14)
+
 
 # pacman
 
