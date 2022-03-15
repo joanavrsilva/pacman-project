@@ -226,11 +226,11 @@ class game:
                          image = "0" + image
                     # get tile image
                     image = "tile" + image + ".png"
-                    tileImage = pygame.image.load(BoardPath + image)
-                    tileImage = pygame.transform.scale(tileImage, (square, square))
+                    title = pygame.image.load(BoardPath + image)
+                    title = pygame.transform.scale(title, (square, square))
 
                     # image of tile
-                    screen.blit(tileImage, (j * square, i * square, square, square))
+                    screen.blit(title, (j * square, i * square, square, square))
 
                     # pygame.draw.rect(screen, (0, 0, 255),(j * square, i * square, square, square)) # (x, y, width, height)
                 elif board[i][j] == 2: # draw timer
@@ -328,9 +328,9 @@ class game:
         scoreStart = 5
         highScoreStart = 11
         for i in range(scoreStart, scoreStart+len(textOneUp)):
-            tileImage = pygame.image.load(TextPath + textOneUp[index])
-            tileImage = pygame.transform.scale(tileImage, (square, square))
-            screen.blit(tileImage, (i * square, 4, square, square))
+            title = pygame.image.load(TextPath + textOneUp[index])
+            title = pygame.transform.scale(title, (square, square))
+            screen.blit(title, (i * square, 4, square, square))
             index += 1
         score = str(self.score)
         if score == "0":
@@ -338,16 +338,16 @@ class game:
         index = 0
         for i in range(0, len(score)):
             digit = int(score[i])
-            tileImage = pygame.image.load(TextPath + "tile0" + str(32 + digit) + ".png")
-            tileImage = pygame.transform.scale(tileImage, (square, square))
-            screen.blit(tileImage, ((scoreStart + 2 + index) * square, square + 4, square, square))
+            title = pygame.image.load(TextPath + "tile0" + str(32 + digit) + ".png")
+            title = pygame.transform.scale(title, (square, square))
+            screen.blit(title, ((scoreStart + 2 + index) * square, square + 4, square, square))
             index += 1
 
         index = 0
         for i in range(highScoreStart, highScoreStart+len(textHighScore)):
-            tileImage = pygame.image.load(TextPath + textHighScore[index])
-            tileImage = pygame.transform.scale(tileImage, (square, square))
-            screen.blit(tileImage, (i * square, 4, square, square))
+            title = pygame.image.load(TextPath + textHighScore[index])
+            title = pygame.transform.scale(title, (square, square))
+            screen.blit(title, (i * square, 4, square, square))
             index += 1
 
         highScore = str(self.highScore)
@@ -356,13 +356,13 @@ class game:
         index = 0
         for i in range(0, len(highScore)):
             digit = int(highScore[i])
-            tileImage = pygame.image.load(TextPath + "tile0" + str(32 + digit) + ".png")
-            tileImage = pygame.transform.scale(tileImage, (square, square))
-            screen.blit(tileImage, ((highScoreStart + 6 + index) * square, square + 4, square, square))
+            title = pygame.image.load(TextPath + "tile0" + str(32 + digit) + ".png")
+            title = pygame.transform.scale(title, (square, square))
+            screen.blit(title, ((highScoreStart + 6 + index) * square, square + 4, square, square))
             index += 1
 
     def drawBerry(self):
-        if self.levelTimer in range(self.berryState[0], self.berryState[1]) and not self.berryState[2]:
+        if self.levelTimer in range(self.berrystatus[0], self.berrystatus[1]) and not self.berrystatus[2]:
             berryImage = pygame.image.load(ElementPath + self.berries[(self.level - 1) % 8])
             berryImage = pygame.transform.scale(berryImage, (int(square * spriteRatio), int(square * spriteRatio)))
             screen.blit(berryImage, (self.berryLocation[1] * square, self.berryLocation[0] * square, square, square))
@@ -373,9 +373,9 @@ class game:
         index = 0
         for i in range(len(pointStr)):
             digit = int(pointStr[i])
-            tileImage = pygame.image.load(TextPath + "tile" + str(224 + digit) + ".png")
-            tileImage = pygame.transform.scale(tileImage, (square//2, square//2))
-            screen.blit(tileImage, ((col) * square + (square//2 * index), row * square - 20, square//2, square//2))
+            title = pygame.image.load(TextPath + "tile" + str(224 + digit) + ".png")
+            title = pygame.transform.scale(title, (square//2, square//2))
+            screen.blit(title, ((col) * square + (square//2 * index), row * square - 20, square//2, square//2))
             index += 1
 
     def drawReady(self):
@@ -392,15 +392,166 @@ class game:
             self.recordHighScore()
             return
 
+ # Resets the screen around pacman
+    self.drawTiles(self.pacman.row, self.pacman.col)
+
+    # Draws new image
+    pacman = pygame.image.load(ElementPath + "tile" + str(116 + self.gameOverCounter) + ".png")
+    pacman = pygame.transform.scale(pacman, (int(square * spriteRatio), int(square * spriteRatio)))
+    screen.blit(pacman, (self.pacman.col * square + spriteOffset, self.pacman.row * square + spriteOffset, square, square))
+    pygame.display.update()
+    pause(5000000)
+    self.gameOverScore += 1
+
+    def lives(self):
+        lives = [[34, 3], [34, 1]]
+        for i in range(self.lives - 1):
+            life = pygame.image.load(ElementPath + "tile054.png")
+            life = pygame.transform.scale(life, (int(square * spriteRatio), int(square * spriteRatio)))
+            screen.blit(life, (lives[i][1] * square, lives[i][0] * square - spriteOffset, square, square))
+
+    def berries(self):
+        firstBerrie = [34, 26]
+        for i in range(len(self.berriesCollected)):
+            berrie = pygame.image.load(ElementPath + self.berriesCollected[i])
+            berrie = pygame.transform.scale(berrie, (int(square * spriteRatio), int(square * spriteRatio)))
+            screen.blit(berrie, ((firstBerrie[1] - (2*i)) * square, firstBerrie[0] * square + 5, square, square))
+
+    def touchPacman(self, row, col):
+        if row - 0.5 <= self.pacman.row and row >= self.pacman.row and col == self.pacman.col:
+            return True
+        elif row + 0.5 >= self.pacman.row and row <= self.pacman.row and col == self.pacman.col:
+            return True
+        elif row == self.pacman.row and col - 0.5 <= self.pacman.col and col >= self.pacman.col:
+            return True
+        elif row == self.pacman.row and col + 0.5 >= self.pacman.col and col <= self.pacman.col:
+            return True
+        elif row == self.pacman.row and col == self.pacman.col:
+            return True
+        return False
+
+    def newLevel(self):
+        reset()
+        self.lives += 1
+        self.collect = 0
+        self.start = False
+        self.berryStatus = [200, 400, False]
+        self.levelTimer = 0
+        self.lock = True
+        for level in self.levels:
+            level[0] = min((level[0] + level[1]) - 100, level[0] + 50)
+            level[1] = max(100, level[1] - 50)
+        random.shuffle(self.levels)
+        index = 0
+        for status in self.ghostStatus:
+            status[0] = randrange(2)
+            status[1] = randrange(self.levels[index][status[0]] + 1)
+            index += 1
+        global board
+        board = copy.deepcopy(originalboard)
+        self.render()
+
+    def drawTiles(self, row, col):
+        row = math.floor(row)
+        col = math.floor(col)
+        for i in range(row-2, row+3):
+            for j in range(col-2, col+3):
+                if i >= 3 and i < len(board) - 2 and j >= 0 and j < len(board[0]):
+                    image = str(((i - 3) * len(board[0])) + j)
+                    if len(image) == 1:
+                        image = "00" + image
+                    elif len(image) == 2:
+                         image = "0" + image
+                    # Get image of desired tile
+                    image = "tile" + image + ".png"
+                    title = pygame.image.load(BoardPath + image)
+                    title = pygame.transform.scale(title, (square, square))
+                    #Display image of tile
+                    screen.blit(title, (j * square, i * square, square, square))
+
+                    if board[i][j] == 2: # Draw Tic-Tak
+                        pygame.draw.circle(screen, pelletColor,(j * square + square//2, i * square + square//2), square//4)
+                    elif board[i][j] == 5: #Black Special Tic-Tak
+                        pygame.draw.circle(screen, (0, 0, 0),(j * square + square//2, i * square + square//2), square//2)
+                    elif board[i][j] == 6: #White Special Tic-Tak
+                        pygame.draw.circle(screen, pelletColor,(j * square + square//2, i * square + square//2), square//2)
+
+    # flip Color
+    def flipColor(self):
+        global board
+        for i in range(3, len(board) - 2):
+            for j in range(len(board[0])):
+                if board[i][j] == 5:
+                    board[i][j] = 6
+                    pygame.draw.circle(screen, pelletColor,(j * square + square//2, i * square + square//2), square//2)
+                elif board[i][j] == 6:
+                    board[i][j] = 5
+                    pygame.draw.circle(screen, (0, 0, 0),(j * square + square//2, i * square + square//2), square//2)
+
+    def getCount(self):
+        total = 0
+        for i in range(3, len(board) - 2):
+            for j in range(len(board[0])):
+                if board[i][j] == 2 or board[i][j] == 5 or board[i][j] == 6:
+                    total += 1
+        return total
+
+    def highScore(self):
+        file = open(DataPath + "HighScore.txt", "r")
+        highScore = int(file.read())
+        file.close()
+        return highScore
+
+    def recordHighScore(self):
+        file = open(DataPath + "HighScore.txt", "w").close()
+        file = open(DataPath + "HighScore.txt", "w+")
+        file.write(str(self.highScore))
+        file.close()
+
 # pacman
+class Pacman:
+    def __init__(self, row, col):
+        self.row = row
+        self.col = col
+        self.mouthOpen = False
+        self.pacSpeed = 1/4
+        self.mouthDelay = 5
+        self.mouthCount = 0
+        self.dir = 0 # 0: North, 1: East, 2: South, 3: West
+        self.newDir = 0
 
-# ghosts
+    def update(self):
+        if self.newDir == 0:
+            if canMove(math.floor(self.row - self.pacSpeed), self.col) and self.col % 1.0 == 0:
+                self.row -= self.pacSpeed
+                self.dir = self.newDir
+                return
+        elif self.newDir == 1:
+            if canMove(self.row, math.ceil(self.col + self.pacSpeed)) and self.row % 1.0 == 0:
+                self.col += self.pacSpeed
+                self.dir = self.newDir
+                return
+        elif self.newDir == 2:
+            if canMove(math.ceil(self.row + self.pacSpeed), self.col) and self.col % 1.0 == 0:
+                self.row += self.pacSpeed
+                self.dir = self.newDir
+                return
+        elif self.newDir == 3:
+            if canMove(self.row, math.floor(self.col - self.pacSpeed)) and self.row % 1.0 == 0:
+                self.col -= self.pacSpeed
+                self.dir = self.newDir
+                return
 
-# game over
-
-# display lives
-
-# new level
-
-# score
+        if self.dir == 0:
+            if canMove(math.floor(self.row - self.pacSpeed), self.col) and self.col % 1.0 == 0:
+                self.row -= self.pacSpeed
+        elif self.dir == 1:
+            if canMove(self.row, math.ceil(self.col + self.pacSpeed)) and self.row % 1.0 == 0:
+                self.col += self.pacSpeed
+        elif self.dir == 2:
+            if canMove(math.ceil(self.row + self.pacSpeed), self.col) and self.col % 1.0 == 0:
+                self.row += self.pacSpeed
+        elif self.dir == 3:
+            if canMove(self.row, math.floor(self.col - self.pacSpeed)) and self.row % 1.0 == 0:
+                self.col -= self.pacSpeed
 
