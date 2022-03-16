@@ -518,28 +518,28 @@ class pacman:
         self.delay = 5
         self.count = 0
         self.dir = 0
-        self.newDirection = 0
+        self.newDirectionection = 0
 
     def update(self):
-        if self.newDirection == 0:
+        if self.newDirectionection == 0:
             if move(math.floor(self.row - self.speed), self.col) and self.col % 1.0 == 0:
                 self.row -= self.speed
-                self.dir = self.newDirection
+                self.dir = self.newDirectionection
                 return
-        elif self.newDirection == 1:
+        elif self.newDirectionection == 1:
             if move(self.row, math.ceil(self.col + self.speed)) and self.row % 1.0 == 0:
                 self.col += self.speed
-                self.dir = self.newDirection
+                self.dir = self.newDirectionection
                 return
-        elif self.newDirection == 2:
+        elif self.newDirectionection == 2:
             if move(math.ceil(self.row + self.speed), self.col) and self.col % 1.0 == 0:
                 self.row += self.speed
-                self.dir = self.newDirection
+                self.dir = self.newDirectionection
                 return
-        elif self.newDirection == 3:
+        elif self.newDirectionection == 3:
             if move(self.row, math.floor(self.col - self.speed)) and self.row % 1.0 == 0:
                 self.col -= self.speed
-                self.dir = self.newDirection
+                self.dir = self.newDirectionection
                 return
 
         if self.dir == 0:
@@ -717,25 +717,25 @@ class Ghost:
         random.shuffle(dirs)
         best = 10000
         bestDirection = -1
-        for newDirection in dirs:
-            if self.calculateDistance(self.target, [self.row + newDirection[1], self.col + newDirection[2]]) < best:
-                if not (self.lastLoc[0] == self.row + newDirection[1] and self.lastLoc[1] == self.col + newDirection[2]):
-                    if newDirection[0] == 0 and self.col % 1.0 == 0:
-                        if self.isValid(math.floor(self.row + newDirection[1]), int(self.col + newDirection[2])):
-                            bestDirection = newDirection[0]
-                            best = self.calculateDistance(self.target, [self.row + newDirection[1], self.col + newDirection[2]])
-                    elif newDirection[0] == 1 and self.row % 1.0 == 0:
-                        if self.isValid(int(self.row + newDirection[1]), math.ceil(self.col + newDirection[2])):
-                            bestDirection = newDirection[0]
-                            best = self.calculateDistance(self.target, [self.row + newDirection[1], self.col + newDirection[2]])
-                    elif newDirection[0] == 2 and self.col % 1.0 == 0:
-                        if self.isValid(math.ceil(self.row + newDirection[1]), int(self.col + newDirection[2])):
-                            bestDirection = newDirection[0]
-                            best = self.calculateDistance(self.target, [self.row + newDirection[1], self.col + newDirection[2]])
-                    elif newDirection[0] == 3 and self.row % 1.0 == 0:
-                        if self.isValid(int(self.row + newDirection[1]), math.floor(self.col + newDirection[2])):
-                            bestDirection = newDirection[0]
-                            best = self.calculateDistance(self.target, [self.row + newDirection[1], self.col + newDirection[2]])
+        for newDirectionection in dirs:
+            if self.calculateDistance(self.target, [self.row + newDirectionection[1], self.col + newDirectionection[2]]) < best:
+                if not (self.lastLoc[0] == self.row + newDirectionection[1] and self.lastLoc[1] == self.col + newDirectionection[2]):
+                    if newDirectionection[0] == 0 and self.col % 1.0 == 0:
+                        if self.isValid(math.floor(self.row + newDirectionection[1]), int(self.col + newDirectionection[2])):
+                            bestDirection = newDirectionection[0]
+                            best = self.calculateDistance(self.target, [self.row + newDirectionection[1], self.col + newDirectionection[2]])
+                    elif newDirectionection[0] == 1 and self.row % 1.0 == 0:
+                        if self.isValid(int(self.row + newDirectionection[1]), math.ceil(self.col + newDirectionection[2])):
+                            bestDirection = newDirectionection[0]
+                            best = self.calculateDistance(self.target, [self.row + newDirectionection[1], self.col + newDirectionection[2]])
+                    elif newDirectionection[0] == 2 and self.col % 1.0 == 0:
+                        if self.isValid(math.ceil(self.row + newDirectionection[1]), int(self.col + newDirectionection[2])):
+                            bestDirection = newDirectionection[0]
+                            best = self.calculateDistance(self.target, [self.row + newDirectionection[1], self.col + newDirectionection[2]])
+                    elif newDirectionection[0] == 3 and self.row % 1.0 == 0:
+                        if self.isValid(int(self.row + newDirectionection[1]), math.floor(self.col + newDirectionection[2])):
+                            bestDirection = newDirectionection[0]
+                            best = self.calculateDistance(self.target, [self.row + newDirectionection[1], self.col + newDirectionection[2]])
         self.dir = bestDirection
 
     def calculateDistance(self, a, b):
@@ -906,9 +906,54 @@ def displayLaunchScreen():
         programme = pygame.identity.load(text + wall[i])
         programme = pygame.transform.scale(programme, (int(square * 2), int(square * 2)))
         screen.blit(programme, ((i * 2) * square, 26 * square, square, square))
-    # Credit myself
-    credit = ["tile003.png", "tile004.png", "tile022.png", "tile008.png", "tile013.png", "tile015.png", "tile011.png", "tile004.png", "tile000.png", "tile012.png", "tile025.png", "tile015.png", "tile418.png", "tile416.png", "tile418.png", "tile416.png"]
-    for i in range(len(credit)):
-        symbol = pygame.identity.load(text + credit[i])
-        symbol = pygame.transform.scale(symbol, (int(square), int(square)))
-        screen.blit(symbol, ((6 + i) * square, 30 * square, square, square))
+    
+     # Press Space to Play
+    instructions = ["tile016.png", "tile018.png", "tile004.png", "tile019.png", "tile019.png", "tile015.png", "tile019.png", "tile016.png", "tile000.png", "tile002.png", "tile004.png", "tile015.png", "tile020.png", "tile014.png", "tile015.png", "tile016.png", "tile011.png", "tile000.png", "tile025.png"]
+    for i in range(len(instructions)):
+        letter = pygame.image.load(TextPath + instructions[i])
+        letter = pygame.transform.scale(letter, (int(square), int(square)))
+        screen.blit(letter, ((4.5 + i) * square, 35 * square - 10, square, square))
+
+    pygame.display.update()
+
+running = True
+screen = True
+displayScreen()
+
+def pause(time):
+    cur = 0
+    while not cur == time:
+        cur += 1
+
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+            game.recordHighScore()
+        elif event.type == pygame.KEYDOWN:
+            game.paus = False
+            game.start = True
+            if event.key == pygame.K_w:
+                if not screen:
+                    game.pacman.newDirection = 0
+            elif event.key == pygame.K_d:
+                if not screen:
+                    game.pacman.newDirection = 1
+            elif event.key == pygame.K_s:
+                if not screen:
+                    game.pacman.newDirection = 2
+            elif event.key == pygame.K_a:
+                if not screen:
+                    game.pacman.newDirection = 3
+            elif event.key == pygame.K_SPACE:
+                if screen:
+                    screen = False
+                    game.pause = True
+                    game.start = False
+                    game.render()
+            elif event.key == pygame.K_q:
+                running = False
+                game.record()
+
+    if not screen:
+        game.update()
