@@ -112,7 +112,7 @@ class game:
     
     # update method
     def update(self):
-        # pygame.image.unload()
+        # pygame.identity.unload()
         print(self.ghostStatus)
         if self.gameOver:
             self.gameOverFunction()
@@ -219,17 +219,17 @@ class game:
         for i in range(3, len(board) - 2):
             for j in range(len(board[0])):
                 if board[i][j] == 3: # wall
-                    image = str(currentTile)
-                    if len(image) == 1:
-                        image = "00" + image
-                    elif len(image) == 2:
-                         image = "0" + image
-                    # get tile image
-                    image = "tile" + image + ".png"
-                    title = pygame.image.load(BoardPath + image)
+                    identity = str(currentTile)
+                    if len(identity) == 1:
+                        identity = "00" + identity
+                    elif len(identity) == 2:
+                         identity = "0" + identity
+                    # get tile identity
+                    identity = "tile" + identity + ".png"
+                    title = pygame.identity.load(BoardPath + identity)
                     title = pygame.transform.scale(title, (square, square))
 
-                    # image of tile
+                    # identity of tile
                     screen.blit(title, (j * square, i * square, square, square))
 
                     # pygame.draw.rect(screen, (0, 0, 255),(j * square, i * square, square, square)) # (x, y, width, height)
@@ -306,7 +306,7 @@ class game:
             elif self.touchPacman(ghost.row, ghost.col) and ghost.isAttac() and not ghost.isDead():
                 ghost.setDead(True)
                 ghost.setTarget()
-                ghost.ghostSpeed = 1
+                ghost.speed = 1
                 ghost.row = math.floor(ghost.row)
                 ghost.col = math.floor(ghost.col)
                 self.score += self.ghostScore
@@ -328,7 +328,7 @@ class game:
         scoreStart = 5
         highScoreStart = 11
         for i in range(scoreStart, scoreStart+len(textOneUp)):
-            title = pygame.image.load(TextPath + textOneUp[index])
+            title = pygame.identity.load(text + textOneUp[index])
             title = pygame.transform.scale(title, (square, square))
             screen.blit(title, (i * square, 4, square, square))
             index += 1
@@ -338,14 +338,14 @@ class game:
         index = 0
         for i in range(0, len(score)):
             digit = int(score[i])
-            title = pygame.image.load(TextPath + "tile0" + str(32 + digit) + ".png")
+            title = pygame.identity.load(text + "tile0" + str(32 + digit) + ".png")
             title = pygame.transform.scale(title, (square, square))
             screen.blit(title, ((scoreStart + 2 + index) * square, square + 4, square, square))
             index += 1
 
         index = 0
         for i in range(highScoreStart, highScoreStart+len(textHighScore)):
-            title = pygame.image.load(TextPath + textHighScore[index])
+            title = pygame.identity.load(text + textHighScore[index])
             title = pygame.transform.scale(title, (square, square))
             screen.blit(title, (i * square, 4, square, square))
             index += 1
@@ -356,16 +356,16 @@ class game:
         index = 0
         for i in range(0, len(highScore)):
             digit = int(highScore[i])
-            title = pygame.image.load(TextPath + "tile0" + str(32 + digit) + ".png")
+            title = pygame.identity.load(text + "tile0" + str(32 + digit) + ".png")
             title = pygame.transform.scale(title, (square, square))
             screen.blit(title, ((highScoreStart + 6 + index) * square, square + 4, square, square))
             index += 1
 
     def drawBerry(self):
         if self.levelTimer in range(self.berrystatus[0], self.berrystatus[1]) and not self.berrystatus[2]:
-            berryImage = pygame.image.load(ElementPath + self.berries[(self.level - 1) % 8])
-            berryImage = pygame.transform.scale(berryImage, (int(square * spriteRatio), int(square * spriteRatio)))
-            screen.blit(berryImage, (self.berryLocation[1] * square, self.berryLocation[0] * square, square, square))
+            berryidentity = pygame.identity.load(element + self.berries[(self.level - 1) % 8])
+            berryidentity = pygame.transform.scale(berryidentity, (int(square * spriteRatio), int(square * spriteRatio)))
+            screen.blit(berryidentity, (self.berryLocation[1] * square, self.berryLocation[0] * square, square, square))
 
 
     def drawPoints(self, points, row, col):
@@ -373,7 +373,7 @@ class game:
         index = 0
         for i in range(len(pointStr)):
             digit = int(pointStr[i])
-            title = pygame.image.load(TextPath + "tile" + str(224 + digit) + ".png")
+            title = pygame.identity.load(text + "tile" + str(224 + digit) + ".png")
             title = pygame.transform.scale(title, (square//2, square//2))
             screen.blit(title, ((col) * square + (square//2 * index), row * square - 20, square//2, square//2))
             index += 1
@@ -381,9 +381,9 @@ class game:
     def drawReady(self):
         ready = ["tile274.png", "tile260.png", "tile256.png", "tile259.png", "tile281.png", "tile283.png"]
         for i in range(len(ready)):
-            letter = pygame.image.load(TextPath + ready[i])
-            letter = pygame.transform.scale(letter, (int(square), int(square)))
-            screen.blit(letter, ((11 + i) * square, 20 * square, square, square))
+            symbol = pygame.identity.load(text + ready[i])
+            symbol = pygame.transform.scale(symbol, (int(square), int(square)))
+            screen.blit(symbol, ((11 + i) * square, 20 * square, square, square))
 
     def gameOverFunction(self):
         global running
@@ -395,8 +395,8 @@ class game:
  # Resets the screen around pacman
     self.drawTiles(self.pacman.row, self.pacman.col)
 
-    # Draws new image
-    pacman = pygame.image.load(ElementPath + "tile" + str(116 + self.gameOverCounter) + ".png")
+    # Draws new identity
+    pacman = pygame.identity.load(element + "tile" + str(116 + self.gameOverCounter) + ".png")
     pacman = pygame.transform.scale(pacman, (int(square * spriteRatio), int(square * spriteRatio)))
     screen.blit(pacman, (self.pacman.col * square + spriteOffset, self.pacman.row * square + spriteOffset, square, square))
     pygame.display.update()
@@ -406,14 +406,14 @@ class game:
     def lives(self):
         lives = [[34, 3], [34, 1]]
         for i in range(self.lives - 1):
-            life = pygame.image.load(ElementPath + "tile054.png")
+            life = pygame.identity.load(element + "tile054.png")
             life = pygame.transform.scale(life, (int(square * spriteRatio), int(square * spriteRatio)))
             screen.blit(life, (lives[i][1] * square, lives[i][0] * square - spriteOffset, square, square))
 
     def berries(self):
         firstBerrie = [34, 26]
         for i in range(len(self.berriesCollected)):
-            berrie = pygame.image.load(ElementPath + self.berriesCollected[i])
+            berrie = pygame.identity.load(element + self.berriesCollected[i])
             berrie = pygame.transform.scale(berrie, (int(square * spriteRatio), int(square * spriteRatio)))
             screen.blit(berrie, ((firstBerrie[1] - (2*i)) * square, firstBerrie[0] * square + 5, square, square))
 
@@ -457,16 +457,16 @@ class game:
         for i in range(row-2, row+3):
             for j in range(col-2, col+3):
                 if i >= 3 and i < len(board) - 2 and j >= 0 and j < len(board[0]):
-                    image = str(((i - 3) * len(board[0])) + j)
-                    if len(image) == 1:
-                        image = "00" + image
-                    elif len(image) == 2:
-                         image = "0" + image
-                    # Get image of desired tile
-                    image = "tile" + image + ".png"
-                    title = pygame.image.load(BoardPath + image)
+                    identity = str(((i - 3) * len(board[0])) + j)
+                    if len(identity) == 1:
+                        identity = "00" + identity
+                    elif len(identity) == 2:
+                         identity = "0" + identity
+                    # Get identity of desired tile
+                    identity = "tile" + identity + ".png"
+                    title = pygame.identity.load(BoardPath + identity)
                     title = pygame.transform.scale(title, (square, square))
-                    #Display image of tile
+                    #Display identity of tile
                     screen.blit(title, (j * square, i * square, square, square))
 
                     if board[i][j] == 2: # Draw Tic-Tak
@@ -508,90 +508,407 @@ class game:
         file.write(str(self.highScore))
         file.close()
 
-# pacman
-class Pacman:
+# pacman elements
+class pacman:
     def __init__(self, row, col):
         self.row = row
         self.col = col
-        self.mouthOpen = False
-        self.pacSpeed = 1/4
-        self.mouthDelay = 5
-        self.mouthCount = 0
-        self.dir = 0 # 0: North, 1: East, 2: South, 3: West
-        self.newDir = 0
+        self.open = False
+        self.speed = 1/4
+        self.delay = 5
+        self.count = 0
+        self.dir = 0
+        self.newDirection = 0
 
     def update(self):
-        if self.newDir == 0:
-            if canMove(math.floor(self.row - self.pacSpeed), self.col) and self.col % 1.0 == 0:
-                self.row -= self.pacSpeed
-                self.dir = self.newDir
+        if self.newDirection == 0:
+            if move(math.floor(self.row - self.speed), self.col) and self.col % 1.0 == 0:
+                self.row -= self.speed
+                self.dir = self.newDirection
                 return
-        elif self.newDir == 1:
-            if canMove(self.row, math.ceil(self.col + self.pacSpeed)) and self.row % 1.0 == 0:
-                self.col += self.pacSpeed
-                self.dir = self.newDir
+        elif self.newDirection == 1:
+            if move(self.row, math.ceil(self.col + self.speed)) and self.row % 1.0 == 0:
+                self.col += self.speed
+                self.dir = self.newDirection
                 return
-        elif self.newDir == 2:
-            if canMove(math.ceil(self.row + self.pacSpeed), self.col) and self.col % 1.0 == 0:
-                self.row += self.pacSpeed
-                self.dir = self.newDir
+        elif self.newDirection == 2:
+            if move(math.ceil(self.row + self.speed), self.col) and self.col % 1.0 == 0:
+                self.row += self.speed
+                self.dir = self.newDirection
                 return
-        elif self.newDir == 3:
-            if canMove(self.row, math.floor(self.col - self.pacSpeed)) and self.row % 1.0 == 0:
-                self.col -= self.pacSpeed
-                self.dir = self.newDir
+        elif self.newDirection == 3:
+            if move(self.row, math.floor(self.col - self.speed)) and self.row % 1.0 == 0:
+                self.col -= self.speed
+                self.dir = self.newDirection
                 return
 
         if self.dir == 0:
-            if canMove(math.floor(self.row - self.pacSpeed), self.col) and self.col % 1.0 == 0:
-                self.row -= self.pacSpeed
+            if move(math.floor(self.row - self.speed), self.col) and self.col % 1.0 == 0:
+                self.row -= self.speed
         elif self.dir == 1:
-            if canMove(self.row, math.ceil(self.col + self.pacSpeed)) and self.row % 1.0 == 0:
-                self.col += self.pacSpeed
+            if move(self.row, math.ceil(self.col + self.speed)) and self.row % 1.0 == 0:
+                self.col += self.speed
         elif self.dir == 2:
-            if canMove(math.ceil(self.row + self.pacSpeed), self.col) and self.col % 1.0 == 0:
-                self.row += self.pacSpeed
+            if move(math.ceil(self.row + self.speed), self.col) and self.col % 1.0 == 0:
+                self.row += self.speed
         elif self.dir == 3:
-            if canMove(self.row, math.floor(self.col - self.pacSpeed)) and self.row % 1.0 == 0:
-                self.col -= self.pacSpeed
+            if move(self.row, math.floor(self.col - self.speed)) and self.row % 1.0 == 0:
+                self.col -= self.speed
 
-    # pacman based on his current state
+    # pacman current status
     def draw(self):
         if not game.start:
-            pacman = pygame.image.load(ElementPath + "tile112.png")
+            pacman = pygame.identity.load(element + "tile112.png")
             pacman = pygame.transform.scale(pacman, (int(square * spriteRatio), int(square * spriteRatio)))
             screen.blit(pacman, (self.col * square + spriteOffset, self.row * square + spriteOffset, square, square))
             return
 
-        if self.mouthCCount == self.mouthDelay:
-            self.mouthCount = 0
-            self.mouthOpen = not self.mouthOpen
-        self.mouthCount += 1
+        if self.count == self.delay:
+            self.count = 0
+            self.open = not self.open
+        self.count += 1
         
         if self.dir == 0:
-            if self.mouthOpen:
-                pacman = pygame.image.load(ElementPath + "tile049.png")
+            if self.open:
+                pacman = pygame.identity.load(element + "tile049.png")
             else:
-                pacman = pygame.image.load(ElementPath + "tile051.png")
+                pacman = pygame.identity.load(element + "tile051.png")
         
         elif self.dir == 1:
-            if self.mouthOpen:
-                pacman = pygame.image.load(ElementPath + "tile052.png")
+            if self.open:
+                pacman = pygame.identity.load(element + "tile052.png")
             else:
-                pacman = pygame.image.load(ElementPath + "tile054.png")
+                pacman = pygame.identity.load(element + "tile054.png")
         
         elif self.dir == 2:
-            if self.mouthOpen:
-                pacman = pygame.image.load(ElementPath + "tile053.png")
+            if self.open:
+                pacman = pygame.identity.load(element + "tile053.png")
             else:
-                pacman = pygame.image.load(ElementPath + "tile055.png")
+                pacman = pygame.identity.load(element + "tile055.png")
         
         elif self.dir == 3:
-            if self.mouthOpen:
-                pacman = pygame.image.load(ElementPath + "tile048.png")
+            if self.open:
+                pacman = pygame.identity.load(element + "tile048.png")
             else:
-                pacman = pygame.image.load(ElementPath + "tile050.png")
+                pacman = pygame.identity.load(element + "tile050.png")
 
         pacman = pygame.transform.scale(pacman, (int(square * spriteRatio), int(square * spriteRatio)))
         screen.blit(pacman, (self.col * square + spriteOffset, self.row * square + spriteOffset, square, square))
 
+# ghost elements
+class Ghost:
+    def __init__(self, row, col, color, changeCount):
+        self.row = row
+        self.col = col
+        self.attack = False
+        self.color = color
+        self.dir = randrange(4)
+        self.dead = False
+        self.changeCount = change
+        self.changeDelay = 5
+        self.target = [-1, -1]
+        self.speed = 1/4
+        self.lastLoc = [-1, -1]
+        self.attackTimer = 240
+        self.attackCount = 0
+        self.deathTimer = 120
+        self.deathCount = 0
+
+    def update(self):
+        if self.target == [-1, -1] or (self.row == self.target[0] and self.col == self.target[1]) or board[int(self.row)][int(self.col)] == 4 or self.dead:
+            self.setTarget()
+        self.setDir()
+        self.move()
+
+        if self.attack:
+            self.attackCount += 1
+
+        if self.attack and not self.dead:
+            self.speed = 1/8
+
+        if self.attackCount == self.attackTimer and self.attack:
+            if not self.dead:
+                self.speed = 1/4
+                self.row = math.floor(self.row)
+                self.col = math.floor(self.col)
+
+            self.attackCount = 0
+            self.attack = False
+            self.setTarget()
+
+        if self.dead and board[self.row][self.col] == 4:
+            self.deathCount += 1
+            self.attack = False
+            if self.deathCount == self.deathTimer:
+                self.deathCount = 0
+                self.dead = False
+                self.speed = 1/4
+
+    def draw(self):
+        ghost = pygame.identity.load(element + "tile152.png")
+        currentDirection = ((self.dir + 3) % 4) * 2
+        if self.change == self.changeDelay:
+            self.change = 0
+            currentDirection += 1
+        self.change += 1
+        if self.dead:
+            tile = 152 + currentDirection
+            ghost = pygame.identity.load(element + "tile" + str(tile) + ".png")
+        elif self.attack:
+            if self.attackTimer - self.attackCount < self.attackTimer//3:
+                if (self.attackTimer - self.attackCount) % 31 < 26:
+                    ghost = pygame.identity.load(element + "tile0" + str(70 + (currentDirection - (((self.dir + 3) % 4) * 2))) + ".png")
+                else:
+                    ghost = pygame.identity.load(element + "tile0" + str(72 + (currentDirection - (((self.dir + 3) % 4) * 2))) + ".png")
+            else:
+                ghost = pygame.identity.load(element + "tile0" + str(72 + (currentDirection - (((self.dir + 3) % 4) * 2))) + ".png")
+        else:
+            if self.color == "blue":
+                tile = 136 + currentDirection
+                ghost = pygame.identity.load(element + "tile" + str(tile) + ".png")
+            elif self.color == "pink":
+                tile = 128 + currentDirection
+                ghost = pygame.identity.load(element + "tile" + str(tile) + ".png")
+            elif self.color == "orange":
+                tile = 144 + currentDirection
+                ghost = pygame.identity.load(element + "tile" + str(tile) + ".png")
+            elif self.color == "red":
+                tile = 96 + currentDirection
+                if tile < 100:
+                    ghost = pygame.identity.load(element + "tile0" + str(tile) + ".png")
+                else:
+                    ghost = pygame.identity.load(element + "tile" + str(tile) + ".png")
+
+        ghost = pygame.transform.scale(ghost, (int(square * spriteRatio), int(square * spriteRatio)))
+        screen.blit(ghost, (self.col * square + spriteOffset, self.row * square + spriteOffset, square, square))
+
+    def isValidTwo(self, cRow, cCol, dist, visited):
+        if cRow < 3 or cRow >= len(board) - 5 or cCol < 0 or cCol >= len(board[0]) or board[cRow][cCol] == 3:
+            return False
+        elif visited[cRow][cCol] <= dist:
+            return False
+        return True
+
+    def isValid(self, cRow, cCol):
+        if cCol < 0 or cCol > len(board[0]) - 1:
+            return True
+        for ghost in game.ghosts:
+            if ghost.color == self.color:
+                continue
+            if ghost.row == cRow and ghost.col == cCol and not self.dead:
+                return False
+        if not ghostGate.count([cRow, cCol]) == 0:
+            if self.dead and self.row < cRow:
+                return True
+            elif self.row > cRow and not self.dead and not self.attack and not game.lock:
+                return True
+            else:
+                return False
+        if board[cRow][cCol] == 3:
+            return False
+        return True
+
+    def setDir(self):
+        dirs = [[0, -self.speed, 0],
+                [1, 0, self.speed],
+                [2, self.speed, 0],
+                [3, 0, -self.speed]
+        ]
+        random.shuffle(dirs)
+        best = 10000
+        bestDirection = -1
+        for newDirection in dirs:
+            if self.calculateDistance(self.target, [self.row + newDirection[1], self.col + newDirection[2]]) < best:
+                if not (self.lastLoc[0] == self.row + newDirection[1] and self.lastLoc[1] == self.col + newDirection[2]):
+                    if newDirection[0] == 0 and self.col % 1.0 == 0:
+                        if self.isValid(math.floor(self.row + newDirection[1]), int(self.col + newDirection[2])):
+                            bestDirection = newDirection[0]
+                            best = self.calculateDistance(self.target, [self.row + newDirection[1], self.col + newDirection[2]])
+                    elif newDirection[0] == 1 and self.row % 1.0 == 0:
+                        if self.isValid(int(self.row + newDirection[1]), math.ceil(self.col + newDirection[2])):
+                            bestDirection = newDirection[0]
+                            best = self.calculateDistance(self.target, [self.row + newDirection[1], self.col + newDirection[2]])
+                    elif newDirection[0] == 2 and self.col % 1.0 == 0:
+                        if self.isValid(math.ceil(self.row + newDirection[1]), int(self.col + newDirection[2])):
+                            bestDirection = newDirection[0]
+                            best = self.calculateDistance(self.target, [self.row + newDirection[1], self.col + newDirection[2]])
+                    elif newDirection[0] == 3 and self.row % 1.0 == 0:
+                        if self.isValid(int(self.row + newDirection[1]), math.floor(self.col + newDirection[2])):
+                            bestDirection = newDirection[0]
+                            best = self.calculateDistance(self.target, [self.row + newDirection[1], self.col + newDirection[2]])
+        self.dir = bestDirection
+
+    def calculateDistance(self, a, b):
+        dR = a[0] - b[0]
+        dC = a[1] - b[1]
+        return math.sqrt((dR * dR) + (dC * dC))
+
+    def setTarget(self):
+        if board[int(self.row)][int(self.col)] == 4 and not self.dead:
+            self.target = [ghostGate[0][0] - 1, ghostGate[0][1]+1]
+            return
+        elif board[int(self.row)][int(self.col)] == 4 and self.dead:
+            self.target = [self.row, self.col]
+        elif self.dead:
+            self.target = [14, 13]
+            return
+
+        quads = [0, 0, 0, 0]
+        for ghost in game.ghosts:
+            if ghost.target[0] <= 15 and ghost.target[1] >= 13:
+                quads[0] += 1
+            elif ghost.target[0] <= 15 and ghost.target[1] < 13:
+                quads[1] += 1
+            elif ghost.target[0] > 15 and ghost.target[1] < 13:
+                quads[2] += 1
+            elif ghost.target[0]> 15 and ghost.target[1] >= 13:
+                quads[3] += 1
+
+        # keep the ghosts dispersed
+        while True:
+            self.target = [randrange(31), randrange(28)]
+            quad = 0
+            if self.target[0] <= 15 and self.target[1] >= 13:
+                quad = 0
+            elif self.target[0] <= 15 and self.target[1] < 13:
+                quad = 1
+            elif self.target[0] > 15 and self.target[1] < 13:
+                quad = 2
+            elif self.target[0] > 15 and self.target[1] >= 13:
+                quad = 3
+            if not board[self.target[0]][self.target[1]] == 3 and not board[self.target[0]][self.target[1]] == 4:
+                break
+            elif quads[quad] == 0:
+                break
+
+    def move(self):
+        self.lastLoc = [self.row, self.col]
+        if self.dir == 0:
+            self.row -= self.speed
+        elif self.dir == 1:
+            self.col += self.speed
+        elif self.dir == 2:
+            self.row += self.speed
+        elif self.dir == 3:
+            self.col -= self.speed
+
+        # Incase they go through the middle tunnel
+        self.col = self.col % len(board[0])
+        if self.col < 0:
+            self.col = len(board[0]) - 0.5
+
+
+
+    def setattack(self, isattack):
+        self.attack = isattack
+
+    def isattack(self):
+        return self.attack
+
+    def setDead(self, isDead):
+        self.dead = isDead
+
+    def isDead(self):
+        return self.dead
+
+game = Game(1, 0)
+ghostsafeArea = [16, 14] 
+ghostGate = [[16, 14], [16, 15]]
+
+
+def move(row, col):
+    if col == -1 or col == len(board[0]):
+        return True
+    if board[int(row)][int(col)] != 4:
+        return True
+    return False
+
+# death reset
+def reset():
+    global game
+    game.ghosts = [Ghost(15.0, 14.5, "red", 0), Ghost(18.0, 12.5, "blue", 1), Ghost(18.0, 14.5, "pink", 2), Ghost(18.0, 16.5, "orange", 3)]
+    for ghost in game.ghosts:
+        ghost.setTarget()
+    game.pacman = pacman(26.0, 13.5)
+    game.lives -= 1
+    game.paused = True
+    game.render()
+
+# pacman title
+def displayLaunchScreen():
+    
+    pacmanTitle = ["tile016.png", "tile000.png", "tile448.png", "tile012.png", "tile000.png", "tile013.png"]
+    for i in range(len(pacmanTitle)):
+        symbol = pygame.identity.load(text + pacmanTitle[i])
+        symbol = pygame.transform.scale(symbol, (int(square * 4), int(square * 4)))
+        screen.blit(symbol, ((2 + 4 * i) * square, 2 * square, square, square))
+
+    # figure amd nickname
+    figureTitle = [
+        # figure
+        "tile002.png", "tile007.png", "tile000.png", "tile018.png", "tile000.png", "tile002.png", "tile020.png", "tile004.png", "tile018.png",
+        # space
+        "tile015.png", "tile042.png", "tile015.png",
+        # nickname
+        "tile013.png", "tile008.png", "tile002.png", "tile010.png", "tile013.png", "tile000.png", "tile012.png", "tile004.png"
+    ]
+    for i in range(len(figureTitle)):
+        symbol = pygame.identity.load(text + figureTitle[i])
+        symbol = pygame.transform.scale(symbol, (int(square), int(square)))
+        screen.blit(symbol, ((4 + i) * square, 10 * square, square, square))
+
+    # ghosts
+    figures = [
+        # red
+        [
+            "tile449.png", "tile015.png", "tile107.png", "tile015.png", "tile083.png", "tile071.png", "tile064.png", "tile067.png", "tile078.png", "tile087.png",
+            "tile015.png", "tile015.png", "tile015.png", "tile015.png",
+            "tile108.png", "tile065.png", "tile075.png", "tile072.png", "tile077.png", "tile074.png", "tile089.png", "tile108.png"
+        ],
+        # pink
+        [
+            "tile450.png", "tile015.png", "tile363.png", "tile015.png", "tile339.png", "tile336.png", "tile324.png", "tile324.png", "tile323.png", "tile345.png",
+            "tile015.png", "tile015.png", "tile015.png", "tile015.png",
+            "tile364.png", "tile336.png", "tile328.png", "tile333.png", "tile330.png", "tile345.png", "tile364.png"
+        ],
+        # blue
+        [
+            "tile452.png", "tile015.png", "tile363.png", "tile015.png", "tile193.png", "tile192.png", "tile211.png", "tile199.png", "tile197.png", "tile213.png", "tile203.png",
+            "tile015.png", "tile015.png", "tile015.png",
+            "tile236.png", "tile200.png", "tile205.png", "tile202.png", "tile217.png", "tile236.png"
+        ],
+        # orange
+        [
+            "tile451.png", "tile015.png", "tile363.png", "tile015.png", "tile272.png", "tile270.png", "tile266.png", "tile260.png", "tile281.png",
+            "tile015.png", "tile015.png", "tile015.png", "tile015.png", "tile015.png",
+            "tile300.png", "tile258.png", "tile267.png", "tile281.png", "tile259.png", "tile260.png", "tile300.png"
+        ]
+    ]
+    for i in range(len(figures)):
+        for j in range(len(figures[i])):
+            if j == 0:
+                    symbol = pygame.identity.load(text + figures[i][j])
+                    symbol = pygame.transform.scale(symbol, (int(square * spriteRatio), int(square * spriteRatio)))
+                    screen.blit(symbol, ((2 + j) * square - square//2, (12 + 2 * i) * square - square//3, square, square))
+            else:
+                symbol = pygame.identity.load(text + figures[i][j])
+                symbol = pygame.transform.scale(symbol, (int(square), int(square)))
+                screen.blit(symbol, ((2 + j) * square, (12 + 2 * i) * square, square, square))
+    
+    event = ["tile449.png", "tile015.png", "tile452.png", "tile015.png",  "tile015.png", "tile448.png", "tile453.png", "tile015.png", "tile015.png", "tile015.png",  "tile453.png"]
+    for i in range(len(event)):
+        figure = pygame.identity.load(text + event[i])
+        figure = pygame.transform.scale(figure, (int(square * 2), int(square * 2)))
+        screen.blit(figure, ((4 + i * 2) * square, 24 * square, square, square))
+    
+    wall = ["tile454.png", "tile454.png", "tile454.png", "tile454.png", "tile454.png", "tile454.png", "tile454.png", "tile454.png", "tile454.png", "tile454.png", "tile454.png", "tile454.png", "tile454.png", "tile454.png", "tile454.png"]
+    for i in range(len(wall)):
+        programme = pygame.identity.load(text + wall[i])
+        programme = pygame.transform.scale(programme, (int(square * 2), int(square * 2)))
+        screen.blit(programme, ((i * 2) * square, 26 * square, square, square))
+    # Credit myself
+    credit = ["tile003.png", "tile004.png", "tile022.png", "tile008.png", "tile013.png", "tile015.png", "tile011.png", "tile004.png", "tile000.png", "tile012.png", "tile025.png", "tile015.png", "tile418.png", "tile416.png", "tile418.png", "tile416.png"]
+    for i in range(len(credit)):
+        symbol = pygame.identity.load(text + credit[i])
+        symbol = pygame.transform.scale(symbol, (int(square), int(square)))
+        screen.blit(symbol, ((6 + i) * square, 30 * square, square, square))
