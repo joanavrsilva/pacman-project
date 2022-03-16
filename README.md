@@ -6,6 +6,8 @@
 
 Pac-Man is a 1980 maze action video game developed and released by Namco for arcades.
 
+This project was created for educational purposes only with the aim of training the python language.
+
 # Table Of Contents
 
 1. [Introduction](#introduction)
@@ -38,14 +40,41 @@ The game increases in difficulty as the player progresses; the ghosts become fas
 Text from [Wikipedia](https://en.wikipedia.org/wiki/Pac-Man)
 
 # User Experience
+-   ### User stories
 
-# Features
+    -   #### First Time Visitor Goals
 
-## Design
-### Colour Scheme
+        1. As a First Time Visitor, I want to easily understand the main purpose of the app.
+        2. As a First Time Visitor, I want to be able to easily play the game.
+        3. As a First Time Visitor, I want to have a good time.
+
+    -   #### Returning Visitor Goals
+
+        1. As a Returning Visitor, I want to find a progression of levels.
+        2. As a Returning Visitor, I want to find my scores.
+        3. As a Returning Visitor, I want to find it easy to play and exit the game.
+
+    -   #### Frequent User Goals
+        1. As a Frequent User, I want to see all my scores.
+        2. As a Frequent User, I want to see my high scores.
+        3. As a Frequent User, I want to see different levels.
+
+-   ### Design
+    -   #### Colour Scheme/ Imagery
+        -   Board: blue and black
+        -   Pacman: yelow 
+        -   Gosths: red, yellow, blue, pink - in timer blue and white
+        -   Tails: light orange
+        -   Berries: red and orange
+
+*   ### Wireframes
+![Pacman](https://user-images.githubusercontent.com/83631970/158587851-c11a7819-903d-48d1-a17e-49b1e50c6869.png)
 
 
-## Wireframes
+## Features
+
+- Interactive elements
+
 
 
 # Languages Used
@@ -64,9 +93,9 @@ Text from [Wikipedia](https://en.wikipedia.org/wiki/Pac-Man)
 
 # Testing
 
-    - [PEP8 online check](http://pep8online.com/) - Succesfully passed through the PEP8 validator.
+[PEP8 online check](http://pep8online.com/) - Passed the PEP8 validator.
 
-    - [Google Lighthouse](https://developers.google.com/web/tools/lighthouse#devtools) - Was used to check homepage page performance
+[Google Lighthouse](https://developers.google.com/web/tools/lighthouse#devtools) - Homepage page performance
 
 
 # Deployment
@@ -91,8 +120,8 @@ Text from [Wikipedia](https://en.wikipedia.org/wiki/Pac-Man)
 
 - [Wikipedia](https://en.wikipedia.org/wiki/Pac-Man) - Pacmam text and history.
 
-- [Code Institute Course](https://codeinstitute.net/) - template.
+- [Code Institute Course](https://codeinstitute.net/) - Full Template.
 
 - [Pygame](https://pypi.org/project/pygame/)
 
-- [PacmamGame] Devin Leamy pacman project
+- [Code](https://www.youtube.com/watch?v=qBWCuSID1rc) - Devin Leamy pacman project
