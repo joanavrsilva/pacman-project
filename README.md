@@ -30,8 +30,7 @@ This project was created for educational purposes only with the aim of training 
 
 
 # Introduction
-
-Pac-Man is an action maze chase video game; the player controls the eponymous character through an enclosed maze. The objective of the game is to eat all of the dots placed in the maze while avoiding four colored ghosts — Blinky (red), Pinky (pink), Inky (cyan), and Clyde (orange) — that pursue him. When Pac-Man eats all of the dots, the player advances to the next level. If Pac-Man makes contact with a ghost, he will lose a life; the game ends when all lives are lost. Each of the four ghosts have their own unique, distinct artificial intelligence (A.I.), or "personalities"; Blinky gives direct chase to Pac-Man, Pinky and Inky try to position themselves in front of Pac-Man, usually by cornering him, and Clyde will switch between chasing Pac-Man and fleeing from him.
+Pac-Man is an action maze chase video game; the player controls the eponymous character through an enclosed maze. The objective of the game is to eat all of the dots placed in the maze while avoiding four colored ghosts — Blinky (red), Pinky (pink), Inky (cyan), and Clyde (orange) — that pursue him. When Pac-Man eats all of the dots, the player  advances to the next level. If Pac-Man makes contact with a ghost, he will lose a life; the game ends when all lives are lost. Each of the four ghosts have their own unique, distinct artificial intelligence (A.I.), or "personalities"; Blinky gives direct chase to Pac-Man, Pinky and Inky try to position themselves in front of Pac-Man, usually by cornering him, and Clyde will switch between chasing Pac-Man and fleeing from him.
 
 Placed at the four corners of the maze are large flashing "energizers", or "power pellets". Eating these will cause the ghosts to turn blue with a dizzied expression and reverse direction. Pac-Man can eat blue ghosts for bonus points; when eaten, their eyes make their way back to the center box in the maze, where the ghosts "regenerate" and resume their normal activity. Eating multiple blue ghosts in succession increases their point value. After a certain amount of time, blue-colored ghosts will flash white before turning back into their normal, lethal form. Eating a certain number of dots in a level will cause a bonus item - usually in the form of a fruit – to appear underneath the center box, which can be eaten for bonus points.
 
@@ -40,7 +39,7 @@ The game increases in difficulty as the player progresses; the ghosts become fas
 Text from [Wikipedia](https://en.wikipedia.org/wiki/Pac-Man)
 
 # User Experience
--   ### User stories
+- ## User stories
 
     -   #### First Time Visitor Goals
 
@@ -59,22 +58,19 @@ Text from [Wikipedia](https://en.wikipedia.org/wiki/Pac-Man)
         2. As a Frequent User, I want to see my high scores.
         3. As a Frequent User, I want to see different levels.
 
--   ### Design
-    -   #### Colour Scheme/ Imagery
-        -   Board: blue and black
-        -   Pacman: yelow 
-        -   Gosths: red, yellow, blue, pink - in timer blue and white
-        -   Tails: light orange
-        -   Berries: red and orange
+# Features 
 
-*   ### Wireframes
+## Design
+### Colour Scheme/ Imagery
+-   Board: blue and black
+-   Pacman: yelow 
+-   Gosths: red, yellow, blue, pink - in timer blue and white
+-   Tails: light orange
+-   Berries: red and orange
+-   Interactive elements
+
+## Wireframes
 ![Pacman](https://user-images.githubusercontent.com/83631970/158587851-c11a7819-903d-48d1-a17e-49b1e50c6869.png)
-
-
-## Features
-
-- Interactive elements
-
 
 
 # Languages Used
@@ -95,7 +91,7 @@ Text from [Wikipedia](https://en.wikipedia.org/wiki/Pac-Man)
 
 [PEP8 online check](http://pep8online.com/) - Passed the PEP8 validator.
 
-[Google Lighthouse](https://developers.google.com/web/tools/lighthouse#devtools) - Homepage page performance
+[Google Lighthouse](https://developers.google.com/web/tools/lighthouse#devtools) - Homepage performance
 
 
 # Deployment
@@ -118,7 +114,7 @@ Text from [Wikipedia](https://en.wikipedia.org/wiki/Pac-Man)
 
 # Credits
 
-- [Wikipedia](https://en.wikipedia.org/wiki/Pac-Man) - Pacmam text and history.
+- [Wikipedia](https://en.wikipedia.org/wiki/Pac-Man) - Pacmam text.
 
 - [Code Institute Course](https://codeinstitute.net/) - Full Template.
 
